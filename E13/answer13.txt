@@ -1,0 +1,12 @@
+A brief description of each of them, how you fixed them, was it hard to find, and how the bug(s) could be avoided.
+
+The I2C tristate buffer was not implemented correctly in the design. Due to this, the finite state machine (FSM) was not generated in the synthesis reports. This caused the design to malfunction and prevented proper synthesis analysis.
+
+The buffer implementation was corrected by properly defining the bidirectional signal behavior for the I2C data line (SDA). The output enable logic and assignment were revised to ensure correct high-impedance ('Z') behavior when the line is not driven.
+
+Moderately difficult. The issue was not immediately obvious since no syntax errors were reported. It required checking the synthesis report and tracing the missing FSM logic back to the incorrect buffer implementation.
+
+How the Bug Could Be Avoided:
+Review design guidelines for implementing bidirectional tristate signals.
+Add assertions or testbench checks to ensure correct signal direction control.
+

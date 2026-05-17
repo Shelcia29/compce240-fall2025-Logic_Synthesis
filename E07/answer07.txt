@@ -1,0 +1,40 @@
+
+Answers exercise 07
+
+-----------------------------
+
+Given data:
+Reference clock = 12.288 MHz
+Sample rate = 48 kHz
+Data width = 16 bits
+
+1. Bit clock frequency
+
+bclk_freq = sample_rate_g x 2 x data_width_g
+	  = 48000 x 2 x 16
+	  = 1.536 MHz
+
+2.Clock Dividers
+
+bit clockdivider = 1228800/(2 x 1536000) = 4
+
+left right clock divider = 12288000/(2 x 48000) = 128
+
+sample counter = 12288000/48000 = 256
+
+
+3. Controller process summary
+
+Implementing with three processes as follow.
+
+Sample capture process:
+Takes new left and right inputs and samples at the start of each LRCLK period.
+
+Clock generation process:
+Creates the bit clock (BCLK) and left-right clock (LRCLK).
+They stay synchronized so that the left channel is always sent first.
+
+Audio data shift-out process:
+Sends out one bit at a time from the left and right registers.
+Left channel is sent when LRCLK = 1, and right when LRCLK = 0.
+Works fully with the main system clock (no extra clocks used).

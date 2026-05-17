@@ -1,0 +1,19 @@
+A small plan of your block in file
+
+1. Brief textual description of your processes
+
+The FSM process controls the I²C communication sequence between the master and the slave device. 
+It starts in the START state, where it generates the I²C start condition by pulling the SDA line low while SCL is high. 
+Then, it moves to the SEND_BYTE state to transmit each bit of a data byte over the bus. 
+After sending a byte, it transitions to the WAIT_ACK state, where it releases the SDA line and waits for an acknowledgment (ACK) from the slave. 
+If an ACK is received, it proceeds to send the next byte or the next register value. If no ACK is received, it sets a retry flag. 
+Finally, the FSM enters the STOP_COND state, where it generates the stop condition (SDA high while SCL high). 
+Depending on whether a retry is needed or all parameters are configured, it either restarts communication or finishes the configuration by asserting the finished_out signal.
+
+2. The missing configuration values from the table and where you found them
+
+    The missing configuration is for DAI_CTRL and it can be found in the page 85 of DA7212 data sheet. The value is selected according to the given parameter settings in the lab description.
+
+    The missing value is 1000 0001
+
+    It is found when DAI_EN = 1, DAI_OE = 0, DAI_TDM_MODE_EN = 0, DAI_MONO_MODE_EN = 0, DAI_WORD_LENGTH = 00, DAI_FORMAT = 01

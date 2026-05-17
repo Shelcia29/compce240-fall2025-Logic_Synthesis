@@ -1,0 +1,44 @@
+1.Brief report of the required corrections to example code.
+
+As the correction we did in the following code part
+
+WHEN code_2 =>
+            IF (to_integer(UNSIGNED(keys_in)) = third_c) THEN
+               next_state <= code_3;
+            ELSE
+               next_state <= init;	-- code_3 >> Corrected 
+            END IF;
+
+According to the given state machine the given definition was wrong, we checked this in the wave window using break points and figured that with the error it reports high for unlock when the sequence is 4,1,9..
+So we corrected to return to init when the next state of code_2 is not the correct value.
+
+2. Brief report of errors added on purpose to example code and what was their result.
+
+We have added the following bug intentionally for the code to see the waveform.
+
+WHEN init =>
+            IF (to_integer(UNSIGNED(keys_in)) = first_c) THEN
+               next_state <= code_1;
+            ELSE
+               next_state <= code_1;  --intentional bug
+            END IF;
+
+
+This did not give the corrrect waveform pattern.. It was not giving the high value for even correct sequences..
+
+3. Brief report of the input generation. What is the difference between force-commands and test benches coded with VHDL? How many states is in the state machine of the test bench?
+
+Input generation:
+
+Input generation was done as force commands.. Initially the correct sequence was given as 41690..The lock_out was high when input was 9.. then with a randomized input generation the input sequence was 254169180 in here again the lock_out was high when the input reached 9. Then the sequence was given as 4190 here we did not get any high value for lock_out signal...
+
+
+Force commands and testbench code difference:
+
+In force commands we manually set signal values and it is good for quick testing but not reusable or scalable.
+
+Testbenches written in VHDL code can automatically generate inputs and checks outputs over time and they are reusable, scalable, and good for full test coverage and regression testing.
+
+How many states : 
+
+5 (send1, send2, send3, send4, increment)

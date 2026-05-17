@@ -1,0 +1,13 @@
+What difficulties could be expected in a generic multiple number adder if the count of numbers is not a power of two or if the count is not pre-defined?
+
+>>It is harder to build a balanced adder tree. 
+>>Extra logic is needed for leftover operands, and the design becomes more complex if the number is not fixed.
+
+What is the difference between VHDL's architecture levels structural and RTL?
+
+>>Structural Architecture: connects components together like a circuit diagram.
+>>RTL Architecture: describes how data moves between registers and logic with the clock.
+
+How is hierarchical design implemented with VHDL?
+
+>>By dividing the design into smaller entities and instantiating them as components inside higher-level entities.
